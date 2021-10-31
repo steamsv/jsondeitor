@@ -225,7 +225,7 @@ $('.save').click(function(){
     var text = $('#json-target').innerText().replace('　　', '    ');
     var blob = new Blob([text], {type: "application/json;charset=utf-8"});
     var timestamp=new Date().getTime();
-    saveAs(blob, "format."+timestamp+".json");
+    saveAs(blob, "config.json");
 });
 
 var clipboard = new Clipboard('.copy');
@@ -233,8 +233,8 @@ $('#json-src').keyup();
 
 </script>
 
-<footer style="padding:20px;text-align:center;color:#999;position:relative;">©2018 All right reserved.
-	<a href="http://www.miitbeian.gov.cn/" style="font-size:12px;color:#999;" target="_blank">鄂ICP备16001062号-1</a>
+<footer style="padding:20px;text-align:center;color:#999;position:relative;">©2021 All right reserved.
+	<a href="http://www.miitbeian.gov.cn/" style="font-size:12px;color:#999;" target="_blank"></a>
 </footer>
 
 </body>
