@@ -251,7 +251,7 @@
             $.ajax({
                 url: "https://www.jsontools.org/get?key=" + $("#reids-key").val(),
                 type: 'get',
-                success: function (msg) { console.log(msg) },
+                success: function (msg) { $('#json-src').val(msg);$('#json-src').keyup(); },
                 error: function (err) { alert('请求失败'); }
             });
         });
