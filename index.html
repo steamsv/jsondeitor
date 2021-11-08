@@ -21,10 +21,10 @@
 </head>
 <body style="over-flow:hidden;">
   <header class="header">
-      <div class="form-inline" >
+      <div class="row-fluid" >
           <div class="col-md-5" style="position:relative;">
-                <input type="text" class="form-control" id="reids-key">
-                <button id="delete" class="btn btn-primary">删除</button>
+              <a class="logo" href="/">
+                <span style="color:#FF4500;">json.</span>cuixx.<span style="color:#4A5560;">com</span></a>
           </div>
           <nav class="col-md-7" style="padding:10px 0; "  align="right">
               <div  class="navi" >
@@ -244,15 +244,6 @@ function handleFiles(files) {
         }
     }
 };
-
-$('#delete').click(function () {
-            $.ajax({
-                url: "https://www.jsontools.org/del?key=" + $("#reids-key").val(),
-                type: 'get',
-                success: function (msg) { console.log(msg) },
-                error: function (err) { alert('请求失败'); }
-            });
-        });
 
 var clipboard = new Clipboard('.copy');
 $('#json-src').keyup();
