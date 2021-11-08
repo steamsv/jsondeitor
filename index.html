@@ -245,6 +245,15 @@ function handleFiles(files) {
     }
 };
 
+$('#delete').click(function () {
+            $.ajax({
+                url: "https://www.jsontools.org/del?key=" + $("#reids-key").val(),
+                type: 'get',
+                success: function (msg) { console.log(msg) },
+                error: function (err) { alert('请求失败'); }
+            });
+        });
+
 var clipboard = new Clipboard('.copy');
 $('#json-src').keyup();
 
