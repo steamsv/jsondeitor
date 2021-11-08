@@ -80,22 +80,8 @@
     <script src="js/FileSaver.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.numberedtextarea.js"></script>
-    <script type="text/javascript" src="js/jquery.jsonEdit.js"></script>
 
     <script type="text/javascript">
-        $(function(){
-            if( !'__proto__' in {} ){
-                alert('用这浏览器！你逗我。。');
-            }
-        
-            var edit = $("#textarea").jsonEdit({
-                debug:true
-                ,dynamic:true
-                ,buttonSelector:'#format'
-                ,onError:function(){
-                }
-            });   
-        });
         $('textarea').numberedtextarea();
         var current_json = '';
         var current_json_str = '';
