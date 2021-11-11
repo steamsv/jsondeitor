@@ -46,6 +46,7 @@
     </div>
     <div class="col-md-7" style="padding:0;position:relative;height:100%;">
         <div  class="tool" style="position:absolute;">
+            <a href="#" class="tip directlinkformat" data-placement="bottom">格式化</a>
             <a href="#" class="tip zip" title="压缩"  data-placement="bottom"><i class="fa fa-database"></i></a>
             <a href="#" class="tip xml" title="转XML"  data-placement="bottom"><i class="fa fa-file-excel-o"></i></a>
             <a href="#" class="tip shown"  title="显示行号"  data-placement="bottom"><i class="glyphicon glyphicon-sort-by-order"></i></a>
@@ -54,6 +55,8 @@
             <a href="#" class="tip copy" title="复制" data-clipboard-target="#json-target"  data-placement="bottom"><i class="fa fa-copy"></i></a>
             <a href="#" class="tip compress" title="折叠"  data-placement="bottom"><i class="fa fa-compress"></i></a>
             <a href="#" class="tip import" title="导入" data-placement="bottom"><i class="fa fa-upload"></i></a>
+            <a href="#" class="tip directlink" data-placement="bottom">生成link</a>
+            <a href="#" class="tip directlinkremove" data-placement="bottom">删除link</a>
             <input id="file-input" type="file" class="hidden" onchange="handleFiles(this.files)">
         </div>
         <div id="right-box"  style="width:100%;height: 87vh;min-height:520px;border:solid 1px #f6f6f6;border-radius:0;resize: none;overflow-y:scroll; outline:none;position:relative;font-size:12px;padding-top:40px;">
@@ -253,6 +256,151 @@ $('#json-src').keyup();
 <footer style="padding:20px;text-align:center;color:#999;position:relative;">©2021 All right reserved.
 	<a href="http://www.miitbeian.gov.cn/" style="font-size:12px;color:#999;" target="_blank"></a>
 </footer>
+
+<div class="modal fade" id="delcfmModel" style="z-index:1200">
+    <div class="modal-dialog" style="margin-top:120px">
+        <div class="modal-content message_align" style="border-radius: 5px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">×</span></button>
+                <h4 class="modal-title">生成link</h4>
+            </div>
+            <div class="modal-body">
+                有效时间(单位秒, 默认永久) <input id="directlinkttl" type="text"><br><br>
+                <button id="directlinksubmit">点击生成</button><br><br>
+                <div id="directlinkdiv" style="display: none;">
+                    <button id="directlinkcopy" data-clipboard-target="#directlinkurl">点击复制</button> 
+                    <p id="directlinkurl" href=""></p>
+                </div>
+                
+            </div>
+            <div class="modal-footer">
+                <input type="hidden" id="submitUrl"/>
+                <a id="urlSubmit" class="btn btn-default" data-dismiss="modal">关闭</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="delcfmModelRemove" style="z-index:1200">
+    <div class="modal-dialog" style="margin-top:120px">
+        <div class="modal-content message_align" style="border-radius: 5px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">×</span></button>
+                <h4 class="modal-title">删除link</h4>
+            </div>
+            <div class="modal-body">
+                link key <input id="directlinkremovekey" type="text"><br><br>
+                <button id="directlinkremovebutton">删除</button><br><br>                
+            </div>
+            <div class="modal-footer">
+                <input type="hidden" id="submitUrl"/>
+                <a id="urlSubmit" class="btn btn-default" data-dismiss="modal">关闭</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('.directlinkformat').click(function() {
+        var tmp = $('#json-src').val();
+        tmp = jsonlint.parse(tmp);
+        tmp = JSON.stringify(tmp, null, 4);
+        $('#json-src').val(tmp);
+    });
+    $('.directlink').click(function() {
+        $('#delcfmModel').modal();
+    });
+    $('#directlinksubmit').click(function() {
+        var random = randomString(16);
+        var ttl = $('#directlinkttl').val();
+        $.ajax({
+            type: "POST",
+            url: "https://www.jsontools.org/set",
+            dataType: "json",
+            data: {
+                key: random,
+                value: current_json_str,
+                ttl: ttl
+            },
+            success: function (data) {
+                alert(data);
+            },
+            error: function (jqXHR) {
+                // alert("发生错误：" + jqXHR.status);
+                if (jqXHR.status == "200") {
+                    $("#directlinkdiv").show();
+                    $("#directlinkurl").text("https://www.jsontools.org/json?key=" + random);
+                }
+            }
+        })
+    });
+
+    $('.directlinkremove').click(function() {
+        $('#delcfmModelRemove').modal();
+    });
+    $('#directlinkremovebutton').click(function() {
+        var key = $('#directlinkremovekey').val();
+        $.ajax({
+            type: "GET",
+            url: "https://www.jsontools.org/del?key=" + key,
+            success: function (data) {
+                alert("删除成功");
+            },
+            error: function (jqXHR) {
+                alert("发生错误：" + jqXHR.status);
+            }
+        })
+    });
+
+    function randomString(e) {    
+        e = e || 32;
+        var t = "abcdefhijkmnprstwxyz2345678",
+        a = t.length,
+        n = "";
+        for (i = 0; i < e; i++) n += t.charAt(Math.floor(Math.random() * a));
+        return n
+    }
+    // alert(randomString(16));
+
+    var clipboard = new Clipboard('#directlinkcopy');
+    clipboard.on('success', function (e) {
+		alert("复制成功");
+    });
+    clipboard.on('error', function (e) {
+        console.log(e);
+    });
+
+    function getVar(variable) {
+        var query = window.location.search.substring(1);
+        var vars = query.split("&");
+        for (var i=0;i<vars.length;i++) {
+            var pair = vars[i].split("=");
+            if(pair[0] == variable){return pair[1];}
+        }
+        return(false);
+    }
+    var key = getVar("key");
+    if (key != false && key.length == 16) {
+        $.ajax({
+            type: "GET",
+            url: "https://www.jsontools.org/get?key=" + key,
+            success: function (data) {
+                // alert(data);
+                if (data != null && data.length > 0) {
+                    var tmp = jsonlint.parse(data);
+                    tmp = JSON.stringify(tmp, null, 4);
+                    $('#json-src').val(tmp);
+                    $('#json-src').keyup();
+                }
+            },
+            error: function (jqXHR) {
+                alert("发生错误：" + jqXHR.status);
+            }
+        })
+    }
+</script>
 
 </body>
 </html>
