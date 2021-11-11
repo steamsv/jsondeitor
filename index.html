@@ -19,25 +19,52 @@
 	<link href="css/jquery.numberedtextarea.css" rel="stylesheet">
     <style></style>
 </head>
-<body style="over-flow:hidden;">
-    <header class="header">
-        <div class="row-fluid" >
-            <nav class="col-md-7" style="padding:10px 0; "  align="right">
-                <div  class="navi" >
-                    <a href="/" data-placement="bottom">在线解析</a>
-                </div>
-            </nav>
-            <br style="clear:both;" />
-        </div>
-    </header>
 
+<head>
+    <style>
+    ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: #333;
+    }
+    
+    li {
+      float: left;
+    }
+    
+    li a {
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+    }
+    
+    li a:hover {
+      background-color: #111;
+    }
+    </style>
+    </head>
+    <body>
+    
+    <ul>
+      <li><a class="active" href="#home">Home</a></li>
+      <li><a href="#news">News</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#about">About</a></li>
+    </ul>
+</body>
 <main class="row-fluid" style="height:85%;min-height:550px;">
     <div class="col-md-5" style="padding:0px;height:100%;">
         <textarea id="json-src" placeholder="在此输入Json字符串或XML字符串..." class="form-control"
         style="height:100%;height: 87vh;min-height:520px;padding:10px 10px 10px 30px;border:0;border-right:solid 1px #E5EBEE;border-bottom:solid 1px #eee;border-radius:0;resize: none; outline:none;font-size:10px;">{
     "Json解析":"支持格式化高亮折叠",
+    "Json格式化":"缩进换行一键规范",
     "支持XML转换":"支持XML转换Json,Json转XML",
-    "Json格式验证":"更详细准确的错误信息"
+    "Json格式验证":"更详细准确的错误信息",
+    "生成删除link":"便于分享，带TTL过期自动删除"
 }</textarea>
     </div>
     <div class="col-md-7" style="padding:0;position:relative;height:100%;">
