@@ -37,7 +37,7 @@
 - JSON 数组在中括号 [] 中书写：
 
 数组可包含多个对象：
-
+```
 [
     { key1 : value1-1 , key2:value1-2 }, 
     { key1 : value2-1 , key2:value2-2 }, 
@@ -45,21 +45,23 @@
     ...
     { keyN : valueN-1 , keyN:valueN-2 }, 
 ]
+```
+```
 {
     "sites": [
-        { "name":"菜鸟教程" , "url":"www.runoob.com" }, 
+        { "name":"jsontools" , "url":"www.jsontools.com" }, 
         { "name":"google" , "url":"www.google.com" }, 
         { "name":"微博" , "url":"www.weibo.com" }
     ]
 }
+```
 在上面的例子中，对象 sites 是包含三个对象的数组。每个对象代表一条关于某个网站（name、url）的记录。
 
-JSON 布尔值
-JSON 布尔值可以是 true 或者 false：
+## JSON 布尔值  
+- JSON 布尔值可以是 true 或者 false：
+`{ "flag":true }`
 
-{ "flag":true }
-JSON null
-JSON 可以设置 null 值：
-
-{ "runoob":null }
+## JSON null  
+- JSON 可以设置 null 值：
+`{ "jsontools":null }`
 
