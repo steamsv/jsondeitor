@@ -98,7 +98,7 @@
 ```
 在上面的例子中，对象 sites 是包含三个对象的数组。每个对象代表一条关于某个网站（name、url）的记录。
 
-## JSON 数组  
+## JSON 语法数组  
 - 实例
 ```
 [ "Google", "jsontools", "Taobao" ]
