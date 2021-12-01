@@ -127,7 +127,7 @@
         "Taobao" 
     ]
 }
-
+```
 
 ## JSON 布尔值  
 - JSON 布尔值可以是 true 或者 false：
